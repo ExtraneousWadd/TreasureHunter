@@ -119,11 +119,16 @@ public class TreasureHunter {
             System.out.println("(S)ell something at the shop.");
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
+            System.out.println("(H)unt for treasure!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             if(hunter.gameOver){
                 choice = "x";
-                System.out.println("You couldn't pay the gold, so you lose!");
+                if(hunter.getTreasureCount() == 3){
+                    System.out.println("You collected every treasure, so you win!");
+                } else {
+                    System.out.println("You couldn't pay the gold, so you lose!");
+                }
             } else {
             System.out.print("What's your next move? ");
                 choice = SCANNER.nextLine().toLowerCase();
@@ -147,6 +152,8 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
+        } else if (choice.equals("h")){
+            currentTown.treasureHunt();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {

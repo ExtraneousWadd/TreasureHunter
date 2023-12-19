@@ -8,8 +8,11 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] treasure;
     private int gold;
+    private int treasureCount;
     public boolean gameOver;
+
 
     /**
      * The base constructor of a Hunter assigns the name to the hunter and an empty kit.
@@ -20,6 +23,8 @@ public class Hunter {
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
         kit = new String[6]; // only 6 possible items can be stored in kit
+        treasure = new String[3]; // only 3 possible treasures
+        treasureCount = 0;
         gold = startingGold;
         gameOver = false;
     }
@@ -28,6 +33,7 @@ public class Hunter {
     public String getHunterName() {
         return hunterName;
     }
+    public int getTreasureCount(){return treasureCount;}
 
     /**
      * Updates the amount of gold the hunter has.
@@ -56,6 +62,21 @@ public class Hunter {
         gold -= costOfItem;
         addItem(item);
         return true;
+    }
+
+    public boolean addTreasure(String treasure) {
+        if (!hasTreasure(treasure)) {
+            int idx = emptyPosition(2);
+            this.treasure[idx] = treasure;
+            treasureCount++;
+            if(treasureCount == 3){
+                gameOver = true;
+                System.out.println("You won since you collected every treasure!");
+            }
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -99,7 +120,7 @@ public class Hunter {
      */
     private boolean addItem(String item) {
         if (!hasItemInKit(item)) {
-            int idx = emptyPositionInKit();
+            int idx = emptyPosition(1);
             kit[idx] = item;
             return true;
         }
@@ -107,7 +128,7 @@ public class Hunter {
         return false;
     }
     public void addItemTest(String item){
-        int idx = emptyPositionInKit();
+        int idx = emptyPosition(1);
         kit[idx] = item;
     }
 
@@ -128,6 +149,15 @@ public class Hunter {
         return false;
     }
 
+    public boolean hasTreasure(String treasure) {
+        for (String tmpTreasure: this.treasure) {
+            if (treasure.equals(tmpTreasure)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Returns a printable representation of the inventory, which
      * is a list of the items in kit, with a space between each item.
@@ -135,16 +165,25 @@ public class Hunter {
      * @return The printable String representation of the inventory.
      */
     public String getInventory() {
-        String printableKit = "";
+        String inventory = "";
         String space = " ";
 
         for (String item : kit) {
             if (item != null) {
-                printableKit += Colors.PURPLE + item + Colors.RESET + space;
+                inventory += Colors.PURPLE + item + Colors.RESET + space;
             }
         }
-
-        return printableKit;
+        if(noTreasure()){
+            inventory += "\nTreasures found: none ";
+        } else {
+            inventory += "\nTreasures found: ";
+        }
+        for (String prize : treasure){
+            if (prize != null){
+                inventory += Colors.YELLOW + prize + Colors.RESET + space;
+            }
+        }
+        return inventory;
     }
 
     /**
@@ -187,7 +226,15 @@ public class Hunter {
                 return false;
             }
         }
+        return true;
+    }
 
+    private boolean noTreasure() {
+        for (String string : treasure) {
+            if (string != null) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -196,13 +243,23 @@ public class Hunter {
      *
      * @return index of empty index, or -1 if not found.
      */
-    private int emptyPositionInKit() {
+    private int emptyPosition(int choice) {
+        if(choice == 1){
         for (int i = 0; i < kit.length; i++) {
             if (kit[i] == null) {
                 return i;
             }
         }
-
         return -1;
     }
+        if(choice == 2){
+            for(int i = 0; i < treasure.length; i++){
+                if (treasure[i] == null){
+                    return i;
+                }
+            }
+            return -1;
+        }
+        return -1;
+}
 }

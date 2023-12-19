@@ -44,6 +44,10 @@ public class Town {
     public void hunterArrives(Hunter hunter) {
         this.hunter = hunter;
         printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
+        if(hunter.hasTreasure(terrain.getTreasure())){
+            System.out.println("You have already acquired this town's treasure.");
+            terrain.setSearched();
+        }
 
         if (toughTown) {
             printMessage += Colors.CYAN + "\nIt's pretty rough around here, so watch yourself." + Colors.RESET;
@@ -113,6 +117,19 @@ public class Town {
         }
     }
 
+    public void treasureHunt() {
+        if (terrain.getTreasure().equals("dust")) {
+            System.out.println("All you found was some dust.");
+        } else {
+            if(!terrain.isSearched()) {
+                System.out.println("You found a " + terrain.getTreasure());
+                hunter.addTreasure(terrain.getTreasure());
+            } else {
+                System.out.println("You already have this town's treasure!");
+            }
+        }
+    }
+
     public String toString() {
         return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
     }
@@ -125,17 +142,17 @@ public class Town {
     private Terrain getNewTerrain() {
         int rnd = (int)(Math.random() * 6) + 1;
         if (rnd == 1) {
-            return new Terrain("Mountains", "Rope");
+            return new Terrain("Mountains", "Rope",treasureRandom());
         } else if (rnd == 2) {
-            return new Terrain("Ocean", "Boat");
+            return new Terrain("Ocean", "Boat",treasureRandom());
         } else if (rnd == 3) {
-            return new Terrain("Plains", "Horse");
+            return new Terrain("Plains", "Horse",treasureRandom());
         } else if (rnd == 4) {
-            return new Terrain("Desert", "Water");
+            return new Terrain("Desert", "Water",treasureRandom());
         } else if (rnd == 5) {
-            return new Terrain("Jungle", "Machete");
+            return new Terrain("Jungle", "Machete",treasureRandom());
         } else {
-            return new Terrain("Marsh", "Boots");
+            return new Terrain("Marsh", "Boots",treasureRandom());
         }
     }
 
@@ -144,6 +161,21 @@ public class Town {
      *
      * @return true if the item broke.
      */
+    private String treasureRandom(){
+        String treasure = "";
+        int rnd = (int)(Math.random() * 4) + 1;
+        if(rnd == 1){
+            treasure = "crown";
+        } else if (rnd == 2){
+            treasure = "dust";
+        } else if (rnd == 3){
+            treasure = "gem";
+        } else {
+            treasure = "trophy";
+        }
+        return treasure;
+    }
+
     private boolean checkItemBreak() {
         double rand = Math.random();
         return (rand < 0.5);
