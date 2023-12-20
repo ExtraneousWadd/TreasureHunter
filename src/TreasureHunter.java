@@ -65,6 +65,7 @@ public class TreasureHunter {
             hunter.addItemTest("machete");
             hunter.addItemTest("water");
             hunter.addItemTest("rope");
+            hunter.addItemTest("shovel");
         } else {
             hunter = new Hunter(name, 10);
         }
@@ -120,6 +121,7 @@ public class TreasureHunter {
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
             System.out.println("(H)unt for treasure!");
+            System.out.println("(D)ig for gold!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             if(hunter.gameOver){
@@ -156,7 +158,9 @@ public class TreasureHunter {
             currentTown.treasureHunt();
         } else if (choice.equals("x")) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
-        } else {
+        }else if(choice.equals("d")){
+            currentTown.diggingForGold();
+        }else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
     }

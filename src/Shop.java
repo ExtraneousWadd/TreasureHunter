@@ -11,6 +11,7 @@ public class Shop {
     private static final int WATER_COST = 2;
     private static final int ROPE_COST = 4;
     private static final int MACHETE_COST = 6;
+    private static final int SHOVEL_COST = 8;
     private static final int HORSE_COST = 12;
     private static final int BOOTS_COST = 16;
     private static final int BOAT_COST = 20;
@@ -88,6 +89,7 @@ public class Shop {
         String str = "Water: " + WATER_COST + " gold\n";
         str += "Rope: " + ROPE_COST + " gold\n";
         str += "Machete: " + MACHETE_COST + " gold\n";
+        str += "Shovel: " + SHOVEL_COST + " gold\n";
         str += "Horse: " + HORSE_COST + " gold\n";
         str += "Boots: " + BOOTS_COST + " gold\n";
         str += "Boat: " + BOAT_COST + " gold\n";
@@ -157,6 +159,8 @@ public class Shop {
             return BOOTS_COST;
         } else if (item.equals("boat")) {
             return BOAT_COST;
+        } else if (item.equals("shovel")){
+            return SHOVEL_COST;
         } else {
             return 0;
         }

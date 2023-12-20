@@ -11,6 +11,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private String diggerLog;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -21,6 +22,7 @@ public class Town {
     public Town(Shop shop, double toughness) {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        diggerLog = "";
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -133,6 +135,29 @@ public class Town {
 
     public String toString() {
         return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
+    }
+
+
+
+    public void diggingForGold(){
+        if(hunter.hasItemInKit("shovel")){
+            if(diggerLog.contains(terrain.getTerrainName())){
+                System.out.println("You already dug for gold in this town.");
+            }else{
+                int rnd1 = (int) (Math.random() * 2);
+                if (rnd1 == 0){
+                    int rnd2 = (int) (Math.random() * 20) + 1;
+                    hunter.changeGold(rnd2);
+                    System.out.println("You dug up "+ rnd2 +" gold!");
+                } else{
+                    System.out.println("You dug but only found dirt");
+                }
+                diggerLog += terrain.getTerrainName();
+            }
+
+        }else{
+            System.out.println("You can't dig for gold without a shovel");
+        }
     }
 
     /**
