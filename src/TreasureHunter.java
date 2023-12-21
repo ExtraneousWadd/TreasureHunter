@@ -16,7 +16,7 @@ public class TreasureHunter {
     private Town currentTown;
     private Hunter hunter;
     private boolean hardMode;
-    private boolean easyMode;
+    private static boolean easyMode;
     private boolean normalMode;
 
     public boolean testMode;
@@ -33,7 +33,7 @@ public class TreasureHunter {
         normalMode = false;
         testMode = false;
     }
-    public boolean getEasyMode(){
+    public static boolean getEasyMode(){
         return easyMode;
     }
 
@@ -82,7 +82,12 @@ public class TreasureHunter {
             hunter.addItemTest("rope");
             hunter.addItemTest("shovel");
         } else {
-            hunter = new Hunter(name, 10);
+            if(easyMode) {
+                hunter = new Hunter(name, 20);
+            }
+            else {
+                hunter = new Hunter(name, 10);
+            }
         }
     }
 
@@ -93,17 +98,13 @@ public class TreasureHunter {
         double markdown = 0.5;
         double toughness = 0.4;
         if (hardMode) {
-            // in hard mode, you get less money back when you sell items
             markdown = 0.25;
-
-            // and the town is "tougher"
             toughness = 0.75;
         }
 
         if (easyMode) {
             markdown = 1;
             toughness = 0.1;
-            hunter.changeGold(hunter.getGoldAmount());
         }
 
         // note that we don't need to access the Shop object
