@@ -22,7 +22,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
-        kit = new String[6]; // only 6 possible items can be stored in kit
+        kit = new String[7]; // only 6 possible items can be stored in kit  ---> now 7 for the shovel
         treasure = new String[3]; // only 3 possible treasures
         treasureCount = 0;
         gold = startingGold;
@@ -34,6 +34,7 @@ public class Hunter {
         return hunterName;
     }
     public int getTreasureCount(){return treasureCount;}
+    public int getGoldAmount(){return gold;}
 
     /**
      * Updates the amount of gold the hunter has.
