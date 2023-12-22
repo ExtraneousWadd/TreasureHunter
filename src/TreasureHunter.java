@@ -62,7 +62,7 @@ public class TreasureHunter {
         System.out.print("What's your name, Hunter? ");
         String name = SCANNER.nextLine().toLowerCase();
 
-        System.out.print("Hard mode/Normal mode/Easy Mode/test mode? (h/n/e/test): ");
+        System.out.print("Hard mode/Normal mode/Easy Mode/Test mode/Samurai Mode? (h/n/e/t/s): ");
         String option = SCANNER.nextLine().toLowerCase();
         if (option.equals("h")) {
             hardMode = true;
@@ -73,7 +73,7 @@ public class TreasureHunter {
         if (option.equals("n")) {
             normalMode = true;
         }
-        if (option.equals("test")){
+        if (option.equals("t")){
             testMode = true;
         }
         if (option.equals("s")){
