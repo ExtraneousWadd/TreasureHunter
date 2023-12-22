@@ -18,6 +18,7 @@ public class TreasureHunter {
     private boolean hardMode;
     private static boolean easyMode;
     private boolean normalMode;
+    private static boolean samuraiMode;
 
     public boolean testMode;
 
@@ -32,9 +33,13 @@ public class TreasureHunter {
         easyMode = false;
         normalMode = false;
         testMode = false;
+        samuraiMode = false;
     }
     public static boolean getEasyMode(){
         return easyMode;
+    }
+    public static boolean getSamuraiMode(){
+        return samuraiMode;
     }
 
 
@@ -71,6 +76,9 @@ public class TreasureHunter {
         if (option.equals("test")){
             testMode = true;
         }
+        if (option.equals("s")){
+            samuraiMode = true;
+        }
 
         // set hunter instance variable
         if(testMode) {
@@ -100,6 +108,14 @@ public class TreasureHunter {
         if (hardMode) {
             markdown = 0.25;
             toughness = 0.75;
+        }
+        if (normalMode) {
+            markdown = 0.5;
+            toughness = 0.4;
+        }
+        if (samuraiMode) {
+            markdown = 1;
+            toughness = 0.1;
         }
 
         if (easyMode) {

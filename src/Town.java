@@ -108,8 +108,12 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
-                printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
+            if (Math.random() > noTroubleChance || TreasureHunter.getSamuraiMode()) {
+                if(TreasureHunter.getSamuraiMode() && hunter.hasItemInKit("sword")){
+                    printMessage += Colors.RED + "The brawler, seeing your sword, realizes he picked a losing fight and gives you his gold" + Colors.RESET;
+                }else{
+                    printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
+                }
                 printMessage += Colors.RED + "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + Colors.RESET + " gold." + Colors.RESET;
                 hunter.changeGold(goldDiff);
             } else {
